@@ -11,7 +11,7 @@ class SimpleLog < Logger
         super(logdev, shift_age, shift_size)
 
         self.formatter = proc do |severity, datetime, progname, msg|
-            file, line, method = caller[4].match(%r[.*/(.*):(\d+):in `(.*)']).captures
+            file, line, method = caller[4].match(%r{([^/]+):(\d+):in `(.+)'}).captures
             "#{datetime.to_s[0..-7]} #{severity[0]} (#{file}:#{line}) #{method} - #{msg}\n"
         end
     end
